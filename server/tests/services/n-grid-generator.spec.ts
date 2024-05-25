@@ -4,18 +4,27 @@ import { mock } from 'vitest-mock-extended';
 import { RandomLetterGenerator } from '../../src/domain/services/random-letter-generator';
 import { NGridGenerator } from '../../src/services/n-grid-generator';
 import { NumberGenerator } from '../../src/domain/services/number-generator';
+import { Clock } from '../../src/domain/services/clock';
+import { CodeGenerator } from '../../src/domain/services/code-generator';
 
 describe('NGridGenerator', () => {
     let nGridGenerator: NGridGenerator;
     let randomLetterGenerator: Mocked<RandomLetterGenerator>;
     let numberGenerator: Mocked<NumberGenerator>;
+    let clock: Mocked<Clock>;
+    let codeGenerator: Mocked<CodeGenerator>;
 
     beforeEach(() => {
         randomLetterGenerator = mock<RandomLetterGenerator>();
         numberGenerator = mock<NumberGenerator>();
+        clock = mock<Clock>();
+        codeGenerator = mock<CodeGenerator>();
+
         nGridGenerator = new NGridGenerator(
             randomLetterGenerator,
-            numberGenerator
+            numberGenerator,
+            clock,
+            codeGenerator
         );
     });
 
@@ -41,6 +50,7 @@ describe('NGridGenerator', () => {
 
             expect(nGridGenerator.makeGrid(N, null)).toEqual(grid);
             expect(randomLetterGenerator.getLetter).toHaveBeenCalledTimes(9);
+            expect(numberGenerator.randomInt).not.toHaveBeenCalled();
         });
 
         it('should return a biased grid', () => {
@@ -91,6 +101,23 @@ describe('NGridGenerator', () => {
             expect(randomLetterGenerator.getLetter).toHaveBeenCalledTimes(20);
             expect(numberGenerator.randomInt).toHaveBeenCalledTimes(8);
             expect(numberGenerator.randomInt).toHaveBeenCalledWith(0, N);
+        });
+    });
+
+    describe('#calcCode', () => {
+        it('should return the correct code based on the current time', () => {
+            const grid: string[][] = [
+                ['a', 'a', 'c'],
+                ['b', 'b', 'f'],
+                ['d', 'b', 'h']
+            ];
+
+            clock.getSeconds.mockReturnValueOnce('01');
+            codeGenerator.getCode.mockReturnValueOnce('23');
+
+            expect(nGridGenerator.calcCode(grid)).toBe('23');
+            expect(clock.getSeconds).toHaveBeenCalled();
+            expect(codeGenerator.getCode).toHaveBeenCalledWith(2, 3);
         });
     });
 });

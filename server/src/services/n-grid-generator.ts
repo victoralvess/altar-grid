@@ -1,11 +1,15 @@
 import { GridGenerator } from '../domain/services/grid-generator';
 import { RandomLetterGenerator } from '../domain/services/random-letter-generator';
 import { NumberGenerator } from '../domain/services/number-generator';
+import { Clock } from '../domain/services/clock';
+import { CodeGenerator } from '../domain/services/code-generator';
 
 export class NGridGenerator implements GridGenerator {
     constructor(
         private readonly randomLetterGenerator: RandomLetterGenerator,
-        private readonly numberGenerator: NumberGenerator
+        private readonly numberGenerator: NumberGenerator,
+        private readonly clock: Clock,
+        private readonly codeGenerator: CodeGenerator
     ) { }
 
     makeGrid(size: number, bias: string | null): string[][] {
@@ -54,6 +58,27 @@ export class NGridGenerator implements GridGenerator {
     }
 
     calcCode(grid: string[][]): string {
-        throw new Error('Method not implemented.');
+        const size = grid.length;
+        const [x, y] = this.clock.getSeconds();
+
+        const c1 = grid[Number(x)][Number(y)];
+        const c2 = grid[Number(y)][Number(x)];
+
+        let counter1 = 0;
+        let counter2 = 0;
+
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                if (grid[i][j] === c1) {
+                    counter1++;
+                }
+
+                if (grid[i][j] === c2) {
+                    counter2++;
+                }
+            }
+        }
+
+        return this.codeGenerator.getCode(counter1, counter2);
     }
 }
