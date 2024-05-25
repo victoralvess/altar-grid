@@ -1,3 +1,3 @@
 export interface Clock {
-    getSeconds(): number;
+    getSeconds(): string;
 }
