@@ -100,7 +100,7 @@ describe('NGridGenerator', () => {
             expect(nGridGenerator.makeGrid(N, bias)).toEqual(grid);
             expect(randomLetterGenerator.getLetter).toHaveBeenCalledTimes(20);
             expect(numberGenerator.randomInt).toHaveBeenCalledTimes(8);
-            expect(numberGenerator.randomInt).toHaveBeenCalledWith(0, N);
+            expect(numberGenerator.randomInt).toHaveBeenCalledWith(0, N * N);
         });
     });
 

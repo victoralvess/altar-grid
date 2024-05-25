@@ -41,13 +41,13 @@ export class NGridGenerator implements GridGenerator {
         }
 
         // 20% of the grid should include the bias character
-        let counter = Math.ceil(0.2 * size * size);
+        const totalSize = size * size;
+        let counter = Math.ceil(0.2 * totalSize);
 
         while (counter > 0) {
-            const randInt = this.numberGenerator.randomInt(0, size);
-
-            if (biased.has(randInt)) {
-                continue;
+            let randInt = this.numberGenerator.randomInt(0, totalSize);
+            while (biased.has(randInt)) {
+                randInt = this.numberGenerator.randomInt(0, totalSize);
             }
 
             counter--;
