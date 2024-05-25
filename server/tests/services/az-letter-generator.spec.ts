@@ -33,7 +33,7 @@ describe('AZLetterGenerator', () => {
         [120, 'x'],
         [121, 'y'],
         [122, 'z']
-    ])('should return the correct letter', (code, letter) => {
+    ])('should return the correct letter', (code: number, letter: string) => {
         (numberGenerator as FakeNumberGenerator).setRand(code);
 
         expect(azLetterGenerator.getLetter()).toBe(letter);
