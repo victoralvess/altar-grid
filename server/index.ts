@@ -32,7 +32,7 @@ app.get('/grid', (req: Request, res: Response) => {
 
 app.post('/code', bodyParser.json(), (req: Request, res: Response) => {
     res.json({
-        grid: generateCode.generateCode(req.body.grid)
+        code: generateCode.generateCode(req.body.grid)
     });
 });
 
