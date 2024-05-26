@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import Grid from './components/Grid.vue'
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <main class="w-100 max-w-screen-md mx-auto mt-8">
+    <div class="flex justify-between items-end">
+      <div class="flex flex-col">
+        <label for="char" class="uppercase text-[#97a0a5] font-bold text-sm mb-2">Character</label>
+        <input
+          name="char"
+          class="border rounded border-altar-input px-2 py-3 w-28"
+          type="text"
+          placeholder="Character"
+        >
+      </div>
+      <div>clock</div>
+      <button class="bg-altar-button text-white uppercase font-medium py-2 px-4 rounded h-12">Generate 2D Grid</button>
+    </div>
+    <div class="mt-16">
+      <Grid />
+    </div>
+  </main>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>
