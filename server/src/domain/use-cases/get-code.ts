@@ -1,3 +1,5 @@
+import { Grid } from '../models/grid';
+
 export interface GetCode {
-    getCode(grid: string[][]): string;
+    getCode(grid: Grid): string;
 }

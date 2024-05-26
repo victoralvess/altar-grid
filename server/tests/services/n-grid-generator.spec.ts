@@ -6,6 +6,7 @@ import { NGridGenerator } from '../../src/services/n-grid-generator';
 import { NumberGenerator } from '../../src/domain/services/number-generator';
 import { Clock } from '../../src/domain/services/clock';
 import { CodeGenerator } from '../../src/domain/services/code-generator';
+import { Grid } from '../../src/domain/models/grid';
 
 describe('NGridGenerator', () => {
     let nGridGenerator: NGridGenerator;
@@ -106,7 +107,7 @@ describe('NGridGenerator', () => {
 
     describe('#calcCode', () => {
         it('should return the correct code based on the current time', () => {
-            const grid: string[][] = [
+            const grid: Grid = [
                 ['a', 'a', 'c'],
                 ['b', 'b', 'f'],
                 ['d', 'b', 'h']

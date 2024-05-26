@@ -1,4 +1,6 @@
+import { Grid } from '../models/grid';
+
 export interface GridGenerator {
-    makeGrid(size: number, bias: string | null): string[][];
-    calcCode(grid: string[][]): string;
+    makeGrid(size: number, bias: string | null): Grid;
+    calcCode(grid: Grid): string;
 }

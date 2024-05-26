@@ -3,6 +3,7 @@ import { RandomLetterGenerator } from '../domain/services/random-letter-generato
 import { NumberGenerator } from '../domain/services/number-generator';
 import { Clock } from '../domain/services/clock';
 import { CodeGenerator } from '../domain/services/code-generator';
+import { Grid } from '../domain/models/grid';
 
 export class NGridGenerator implements GridGenerator {
     constructor(
@@ -12,8 +13,8 @@ export class NGridGenerator implements GridGenerator {
         private readonly codeGenerator: CodeGenerator
     ) { }
 
-    makeGrid(size: number, bias: string | null): string[][] {
-        const grid: string[][] = [];
+    makeGrid(size: number, bias: string | null): Grid {
+        const grid: Grid = [];
         const biased: Set<number> = this.randBias(bias, size);
 
         for (let i = 0; i < size; i++) {
@@ -57,7 +58,7 @@ export class NGridGenerator implements GridGenerator {
         return biased;
     }
 
-    calcCode(grid: string[][]): string {
+    calcCode(grid: Grid): string {
         const size = grid.length;
         const [x, y] = this.clock.getSeconds();
 
