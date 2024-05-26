@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Grid from './components/Grid.vue'
+import GridCode from './components/GridCode.vue'
 </script>
 
 <template>
@@ -19,6 +20,9 @@ import Grid from './components/Grid.vue'
     </div>
     <div class="mt-16">
       <Grid />
+    </div>
+    <div class="mt-12">
+      <GridCode :live="true" code="11" />
     </div>
   </main>
 </template>
