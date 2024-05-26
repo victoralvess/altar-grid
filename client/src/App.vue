@@ -12,10 +12,9 @@ const code = ref<string | undefined>();
 const live = ref<boolean>(false);
 const bias = ref<string>('');
 
-const fetchGrid = async () => {
+const tryRequest = async (cb: () => Promise<void>) => {
   try {
-    const gridResponse = await axiosClient.get('grid', { params: { bias: bias.value } });
-    grid.value = gridResponse.data.grid;
+    await cb();
   } catch (error) {
     console.error(error);
 
@@ -29,21 +28,18 @@ const fetchGrid = async () => {
   }
 }
 
+const fetchGrid = async () => {
+  await tryRequest(async () => {
+    const gridResponse = await axiosClient.get('grid', { params: { bias: bias.value } });
+    grid.value = gridResponse.data.grid;
+  });
+}
+
 const fetchCode = async () => {
-  try {
+  await tryRequest(async () => {
     const codeResponse = await axiosClient.post('code', { grid: grid.value });
     code.value = codeResponse.data.code;
-  } catch (error) {
-    console.error(error);
-    
-    if (isAxiosError(error) && error.response) {
-      stopGeneratingGrid(error.response.data)
-    } else {
-      stopGeneratingGrid(error as Error);
-    }
-
-    throw error;
-  }
+  });
 }
 
 const fetchGridAndCode = async () => {
