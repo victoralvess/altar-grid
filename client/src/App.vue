@@ -126,7 +126,7 @@ onUnmounted(() => {
         <img src="./assets/clock.png" alt="clock" width="48">
       </div>
       <button
-        class="bg-altar-button text-white uppercase font-medium py-2 px-4 rounded h-12"
+        class="bg-altar-button text-white uppercase font-medium py-2 px-6 rounded h-11 tracking-wider"
         @click="generateGrid"
       >
         Generate 2D Grid
