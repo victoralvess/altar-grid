@@ -6,23 +6,9 @@ import bodyParser from 'body-parser';
 import { ClientException } from './src/domain/exceptions/client-exception';
 import { GRID_SIZE, createGrid, generateCode } from './src/main/init';
 
-function asyncRoute(cb: (req: Request, res: Response) => Promise<void>) {
-    return async (req: Request, res: Response, next: NextFunction) => {
-        try {
-            await cb(req, res);
-        } catch (error) {
-            next(error);
-        }
-    }; 
-}
-
 const app = express();
 
 app.use(cors());
-
-app.get('/ping', asyncRoute(async (req: Request, res: Response) => {
-    res.send('PONG');
-}));
 
 app.get('/grid', (req: Request, res: Response) => {
     res.json({
