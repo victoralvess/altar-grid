@@ -30,6 +30,11 @@ const fetchCode = async () => {
   }
 }
 
+const fetchGridAndCode = async () => {
+  await fetchGrid();
+  await fetchCode();
+}
+
 const gridInterval = ref<number | undefined>();
 const generateGrid = () => {
   if (gridInterval.value) {
@@ -37,10 +42,9 @@ const generateGrid = () => {
   }
 
   live.value = true;
-  gridInterval.value = setInterval(async () => {
-    await fetchGrid()
-    await fetchCode()
-  }, 2000);
+  
+  fetchGridAndCode(); // fetch immediately
+  gridInterval.value = setInterval(fetchGridAndCode, 2000);
 }
 
 const biasTimeout = ref<boolean>(false);
