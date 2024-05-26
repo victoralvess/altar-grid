@@ -65,7 +65,8 @@ const stopGeneratingGrid = (error: Error) => {
   clearInterval(gridInterval.value);
   gridInterval.value = undefined;
   
-  alert(error.message);
+  // little hack to let vue rerender the live status before showing the message
+  setTimeout(() => { alert(error.message); }, 100);
 }
 
 const biasTimeout = ref<boolean>(false);
