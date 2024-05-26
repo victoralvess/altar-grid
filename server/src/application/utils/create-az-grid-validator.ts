@@ -1,5 +1,5 @@
 import Joi, { type Schema } from 'joi';
-import { CreateGridParams, CreateGridValidator } from "../../domain/utils/create-grid-validator";
+import { CreateGridParams, CreateGridValidator } from '../../domain/utils/create-grid-validator';
 import { ClientException } from '../../domain/exceptions/client-exception';
 
 export class CreateAZGridValidator implements CreateGridValidator {

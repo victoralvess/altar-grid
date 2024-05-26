@@ -12,7 +12,7 @@ describe('CreateAZGridValidator', () => {
     it.each([-2, -1, 0])(
         'should throw an exception if the size is invalid',
          (size: number) => {
-            const params = { size, bias: null }
+            const params = { size, bias: null };
 
             expect(() => gridValidator.validateParams(params)).to.throw(ClientException);
         }
@@ -21,14 +21,14 @@ describe('CreateAZGridValidator', () => {
     it.each(['A', 'aa', 'Z', 'zz'])(
         'should throw an exception if the bias is invalid',
         (bias: string) => {
-            const params = { size: 2, bias }
+            const params = { size: 2, bias };
 
             expect(() => gridValidator.validateParams(params)).to.throw(ClientException);
         }
     );
 
     it('should return the validated params if the input params are valid', () => {
-        const params = { size: 2, bias: 'a' }
+        const params = { size: 2, bias: 'a' };
 
         expect(gridValidator.validateParams(params)).toEqual(params);
     });

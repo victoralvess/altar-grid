@@ -1,4 +1,4 @@
-import { ClientException } from "./client-exception";
+import { ClientException } from './client-exception';
 
 export class InvalidGridException extends ClientException {
     constructor(message: string) {
