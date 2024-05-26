@@ -18,6 +18,8 @@ const fetchGrid = async () => {
     grid.value = gridResponse.data.grid;
   } catch (error) {
     console.error(error);
+    stopGeneratingGrid(error as Error);
+    throw error;
   }
 }
 
@@ -27,6 +29,8 @@ const fetchCode = async () => {
     code.value = codeResponse.data.code;
   } catch (error) {
     console.error(error);
+    stopGeneratingGrid(error as Error);
+    throw error;
   }
 }
 
@@ -45,6 +49,15 @@ const generateGrid = () => {
   
   fetchGridAndCode(); // fetch immediately
   gridInterval.value = setInterval(fetchGridAndCode, 2000);
+}
+
+const stopGeneratingGrid = (error: Error) => {
+  live.value = false;
+  
+  clearInterval(gridInterval.value);
+  gridInterval.value = undefined;
+  
+  alert(error.message);
 }
 
 const biasTimeout = ref<boolean>(false);
