@@ -1,3 +1,4 @@
+import assert from 'node:assert';
 import Joi, { type Schema } from 'joi';
 import { Grid } from '../../domain/models/grid';
 import { GridValidator } from '../../domain/utils/grid-validator';
