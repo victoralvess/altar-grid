@@ -119,7 +119,8 @@ const onBiasKeyPress = async (event: KeyboardEvent) => {
 }
 
 onUnmounted(() => {
-  clearInterval(gridInterval.value)
+  clearInterval(gridInterval.value);
+  clearTimeout(biasCounterTimeout.value);
 });
 </script>
 
