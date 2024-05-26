@@ -2,7 +2,7 @@
     <div>
         <div v-if="grid.length > 0">
             <div v-for="row in grid.length" :key="row" class="flex">
-                <GridCell class="flex-1" v-for="char, col in grid[row - 1]" :key="col" :char="char" />
+                <GridCell class="flex-1" v-for="char, col in grid[row - 1]" :key="char+col" :char="char" />
             </div>
         </div>
         <div v-else>
