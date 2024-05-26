@@ -122,7 +122,9 @@ onUnmounted(() => {
           {{ biasTimeout ? `You must wait for another ${biasCounter} seconds` : biasError }}
         </small>
       </div>
-      <div>clock</div>
+      <div>
+        <img src="./assets/clock.png" alt="clock" width="48">
+      </div>
       <button
         class="bg-altar-button text-white uppercase font-medium py-2 px-4 rounded h-12"
         @click="generateGrid"
