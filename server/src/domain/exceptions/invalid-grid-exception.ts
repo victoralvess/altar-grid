@@ -1,6 +1,6 @@
-export class InvalidGridException extends Error {
-    public readonly status = 400;
+import { ClientException } from "./client-exception";
 
+export class InvalidGridException extends ClientException {
     constructor(message: string) {
         super(message);
         this.name = InvalidGridException.name;
