@@ -3,6 +3,7 @@ import express from 'express';
 import type { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { ClientException } from './src/domain/exceptions/client-exception';
+import { GRID_SIZE, createGrid, generateCode } from './src/main/init';
 
 function asyncRoute(cb: (req: Request, res: Response) => Promise<void>) {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -21,6 +22,18 @@ app.use(cors());
 app.get('/ping', asyncRoute(async (req: Request, res: Response) => {
     res.send('PONG');
 }));
+
+app.get('/grid', (req: Request, res: Response) => {
+    res.json({
+        grid: createGrid.createGrid(GRID_SIZE, (req.query.bias as string) || null)
+    });
+});
+
+app.post('/code', (req: Request, res: Response) => {
+    res.json({
+        grid: generateCode.generateCode(req.body)
+    });
+});
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof ClientException) {
