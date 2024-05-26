@@ -2,7 +2,7 @@
 import { onUnmounted, ref } from 'vue';
 import Grid from './components/Grid.vue';
 import GridCode from './components/GridCode.vue';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 
 const BFF_API_URL = 'http://localhost:3000';
 const axiosClient = axios.create({ baseURL: BFF_API_URL });
@@ -18,7 +18,13 @@ const fetchGrid = async () => {
     grid.value = gridResponse.data.grid;
   } catch (error) {
     console.error(error);
-    stopGeneratingGrid(error as Error);
+
+    if (isAxiosError(error) && error.response) {
+      stopGeneratingGrid(error.response.data)
+    } else {
+      stopGeneratingGrid(error as Error);
+    }
+
     throw error;
   }
 }
@@ -29,7 +35,13 @@ const fetchCode = async () => {
     code.value = codeResponse.data.code;
   } catch (error) {
     console.error(error);
-    stopGeneratingGrid(error as Error);
+    
+    if (isAxiosError(error) && error.response) {
+      stopGeneratingGrid(error.response.data)
+    } else {
+      stopGeneratingGrid(error as Error);
+    }
+
     throw error;
   }
 }
